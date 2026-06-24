@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>TeamFlowAI 课程项目协作系统 导出</title><style>body{font-family:Arial,sans-serif;margin:32px;color:#222;line-height:1.6;}h1,h2,h3{color:#111;}table{width:100%;border-collapse:collapse;margin:12px 0 24px;}th,td{border:1px solid #d9d9d9;padding:8px;vertical-align:top;text-align:left;}th{background:#f5f5f5;}pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;padding:12px;border:1px solid #eee;}.meta{margin-bottom:24px;padding:16px;background:#fafafa;border:1px solid #eee;}</style></head><body><h1>TeamFlowAI 课程项目协作系统 导出报告</h1><div class="meta"><div>课程：软件工程综合实践</div><div>项目编码：TF-DEMO-001</div><div>状态：DEVELOPING</div><div>完整度检查：49.33</div><div>导出时间：2026-06-14T10:18:48.048477</div></div><h2>章节内容</h2><table><thead><tr><th>章节</th><th>状态</th><th>标题</th><th>正文</th></tr></thead><tbody><tr><td>需求分析</td><td>APPROVED</td><td>系统架构设计说明书-初稿</td><td><pre>本系统后端采用 Spring Boot、Mybatis-Plus，数据库使用 PostgreSQL，集成 Spring Security 及 Spring AI 大模型能力...</pre></td></tr><tr><td>用例设计</td><td>APPROVED</td><td>核心用例设计</td><td><pre>核心用例包括登录注册、创建项目、申请加入项目、审核申请、维护章节、任务流转、提交周报、生成 AI 报告和导出成果。</pre></td></tr></tbody></table><h2>任务清单</h2><table><thead><tr><th>标题</th><th>状态</th><th>优先级</th><th>负责人</th><th>截止日期</th><th>阻塞原因</th></tr></thead><tbody><tr><td>完成需求分析章节</td><td>DONE</td><td>HIGH</td><td>陈产品</td><td>2026-05-08</td><td></td></tr><tr><td>重建数据库初始化脚本</td><td>DONE</td><td>URGENT</td><td>王后端</td><td>2026-05-12</td><td></td></tr><tr><td>绘制低保真原型</td><td>REVIEW</td><td>HIGH</td><td>陈产品</td><td>2026-05-15</td><td></td></tr><tr><td>设计后端 API 契约</td><td>IN_PROGRESS</td><td>HIGH</td><td>王后端</td><td>2026-05-24</td><td></td></tr><tr><td>排查后端权限校验阻塞</td><td>BLOCKED</td><td>HIGH</td><td>王后端</td><td>2026-05-25</td><td>角色权限矩阵尚未完成后端落库读取。</td></tr><tr><td>搭建前端项目空间导航</td><td>IN_PROGRESS</td><td>MEDIUM</td><td>李前端</td><td>2026-05-26</td><td></td></tr><tr><td>编写接口测试用例</td><td>TODO</td><td>MEDIUM</td><td>孙测试</td><td>2026-05-28</td><td></td></tr><tr><td>【调整】编写项目可行性研究报告</td><td>BLOCKED</td><td>MEDIUM</td><td>张经理</td><td>2026-06-18</td><td>待第3章系统设计规格明晰后再开始</td></tr><tr><td>【调整】编写项目可行性研究报告</td><td>BLOCKED</td><td>MEDIUM</td><td>张经理</td><td>2026-06-18</td><td>待第3章系统设计规格明晰后再开始</td></tr><tr><td>【调整】编写项目可行性研究报告</td><td>BLOCKED</td><td>MEDIUM</td><td>张经理</td><td>2026-06-18</td><td>待第3章系统设计规格明晰后再开始</td></tr></tbody></table><h2>进度记录</h2><table><thead><tr><th>成员</th><th>周期</th><th>提交状态</th><th>完成内容</th><th>问题</th><th>下周计划</th></tr></thead><tbody><tr><td>张经理</td><td>2026-W24</td><td>NORMAL</td><td>本周完成了认证模块（Auth）和项目模板（ProjectTemplate）的核心开发，并调通了Postman集成自动化测试用例。</td><td>部分角色控制需要通过Mybatis-Plus复杂拼接来实现，开发效率略微受到影响。</td><td>下周预计完成任务模块开发和AI文档智能审计功能的接入。</td></tr><tr><td>孙测试</td><td>2026-W21</td><td>SUPPLEMENTED</td><td>整理测试范围和接口测试用例框架。</td><td>测试数据依赖数据库新脚本。</td><td>补充申请审核和任务流转测试用例。</td></tr><tr><td>王后端</td><td>2026-W21</td><td>LATE</td><td>完成数据库模型和部分 API 契约。</td><td>权限矩阵读取逻辑阻塞任务 7。</td><td>完成项目初始化、章节权限和申请审核接口。</td></tr><tr><td>李前端</td><td>2026-W21</td><td>NORMAL</td><td>完成前端项目空间导航和任务看板初稿。</td><td>部分接口字段仍待后端确认。</td><td>接入章节列表和通知中心接口。</td></tr><tr><td>陈产品</td><td>2026-W21</td><td>NORMAL</td><td>完成低保真原型和核心用例说明。</td><td>通知中心空状态还需补充。</td><td>根据评审意见补充原型说明。</td></tr><tr><td>张经理</td><td>2026-W21</td><td>NORMAL</td><td>完成任务拆分、成员申请规则确认和风险跟踪。</td><td>后端权限矩阵读取还未闭环。</td><td>推进 AI 风险分析和导出验收规则。</td></tr></tbody></table><h2>AI 记录</h2><table><thead><tr><th>类型</th><th>风险等级</th><th>生成时间</th><th>结果</th></tr></thead><tbody><tr><td>SUMMARY_REPORT</td><td></td><td>2026-06-14T10:18:44</td><td><pre>一、项目背景
+TeamFlowAI 课程项目协作系统 面向课程项目小组协作场景。
+
+二、系统目标
+提升任务分工、进度可视化、文档归档和 AI 汇报效率。
+
+三、主要功能
+用户认证、项目管理、成员管理、任务看板、进度记录、文档管理、AI 分析和统计看板。
+
+四、技术栈
+Spring Boot、MyBatis-Plus、MySQL、Vue3、Element Plus 和智谱 GLM。
+
+五、项目成果
+当前任务完成率约 20%，可支撑课程演示和后续扩展。</pre></td></tr><tr><td>DOC_CHECK</td><td></td><td>2026-06-14T10:18:43</td><td><pre>一、文档覆盖概览
+当前项目文件数量为 5，章节数量为 9，最近导出记录 3 条。
+
+二、发现的问题
+若关键章节状态仍非完成，或缺少对应进度记录与导出产物，应视为文档覆盖不足。
+
+三、建议
+请结合章节状态、进度记录和导出结果逐项核对需求、设计、实现、测试与验收材料。</pre></td></tr><tr><td>RISK_ANALYSIS</td><td>HIGH</td><td>2026-06-14T10:18:43</td><td><pre>风险等级：HIGH
+风险原因：阻塞任务 4 个，逾期任务 5 个。
+影响分析：如果阻塞任务持续存在，可能影响章节交付和课程项目按期验收。
+改进建议：明确负责人、拆分任务粒度、补充周进度记录，并由教师或组长进行阶段检查。</pre></td></tr><tr><td>WEEKLY_REPORT</td><td></td><td>2026-06-14T10:18:43</td><td><pre>一、本周项目进展
+TeamFlowAI 课程项目协作系统 当前共有 10 个任务，已完成 2 个，已提交进度记录 6 条。
+
+二、成员与文档情况
+当前已配置 6 个角色、7 名成员，项目文件 5 份，可据此持续补充周报证据。
+
+三、存在的问题
+当前阻塞任务 4 个，逾期未完成任务 5 个，需要组长重点跟进。
+
+四、下周工作建议
+建议优先处理阻塞任务，补充进度记录，并在每周例会中同步风险。</pre></td></tr><tr><td>SUMMARY_REPORT</td><td></td><td>2026-06-14T01:09:06</td><td><pre>一、项目背景
+TeamFlowAI 课程项目协作系统 面向课程项目小组协作场景。
+
+二、系统目标
+提升任务分工、进度可视化、文档归档和 AI 汇报效率。
+
+三、主要功能
+用户认证、项目管理、成员管理、任务看板、进度记录、文档管理、AI 分析和统计看板。
+
+四、技术栈
+Spring Boot、MyBatis-Plus、MySQL、Vue3、Element Plus 和智谱 GLM。
+
+五、项目成果
+当前任务完成率约 22%，可支撑课程演示和后续扩展。</pre></td></tr><tr><td>DOC_CHECK</td><td></td><td>2026-06-14T01:09:06</td><td><pre>一、文档覆盖概览
+当前项目文件数量为 5，章节数量为 9，最近导出记录 2 条。
+
+二、发现的问题
+若关键章节状态仍非完成，或缺少对应进度记录与导出产物，应视为文档覆盖不足。
+
+三、建议
+请结合章节状态、进度记录和导出结果逐项核对需求、设计、实现、测试与验收材料。</pre></td></tr><tr><td>RISK_ANALYSIS</td><td>HIGH</td><td>2026-06-14T01:09:06</td><td><pre>风险等级：HIGH
+风险原因：阻塞任务 3 个，逾期任务 5 个。
+影响分析：如果阻塞任务持续存在，可能影响章节交付和课程项目按期验收。
+改进建议：明确负责人、拆分任务粒度、补充周进度记录，并由教师或组长进行阶段检查。</pre></td></tr><tr><td>WEEKLY_REPORT</td><td></td><td>2026-06-14T01:09:06</td><td><pre>一、本周项目进展
+TeamFlowAI 课程项目协作系统 当前共有 9 个任务，已完成 2 个，已提交进度记录 6 条。
+
+二、成员与文档情况
+当前已配置 6 个角色、7 名成员，项目文件 5 份，可据此持续补充周报证据。
+
+三、存在的问题
+当前阻塞任务 3 个，逾期未完成任务 5 个，需要组长重点跟进。
+
+四、下周工作建议
+建议优先处理阻塞任务，补充进度记录，并在每周例会中同步风险。</pre></td></tr><tr><td>SUMMARY_REPORT</td><td></td><td>2026-06-13T23:52:35</td><td><pre>一、项目背景
+TeamFlowAI 课程项目协作系统 面向课程项目小组协作场景。
+
+二、系统目标
+提升任务分工、进度可视化、文档归档和 AI 汇报效率。
+
+三、主要功能
+用户认证、项目管理、成员管理、任务看板、进度记录、文档管理、AI 分析和统计看板。
+
+四、技术栈
+Spring Boot、MyBatis-Plus、MySQL、Vue3、Element Plus 和智谱 GLM。
+
+五、项目成果
+当前任务完成率约 25%，可支撑课程演示和后续扩展。</pre></td></tr><tr><td>DOC_CHECK</td><td></td><td>2026-06-13T23:49:30</td><td><pre>一、文档覆盖概览
+当前项目文件数量为 5，章节数量为 9，最近导出记录 1 条。
+
+二、发现的问题
+若关键章节状态仍非完成，或缺少对应进度记录与导出产物，应视为文档覆盖不足。
+
+三、建议
+请结合章节状态、进度记录和导出结果逐项核对需求、设计、实现、测试与验收材料。</pre></td></tr><tr><td>RISK_ANALYSIS</td><td>HIGH</td><td>2026-06-13T23:48:56</td><td><pre>风险等级：HIGH
+风险原因：阻塞任务 2 个，逾期任务 5 个。
+影响分析：如果阻塞任务持续存在，可能影响章节交付和课程项目按期验收。
+改进建议：明确负责人、拆分任务粒度、补充周进度记录，并由教师或组长进行阶段检查。</pre></td></tr><tr><td>WEEKLY_REPORT</td><td></td><td>2026-06-13T23:48:17</td><td><pre>一、本周项目进展
+TeamFlowAI 课程项目协作系统 当前共有 8 个任务，已完成 2 个，已提交进度记录 6 条。
+
+二、成员与文档情况
+当前已配置 6 个角色、7 名成员，项目文件 5 份，可据此持续补充周报证据。
+
+三、存在的问题
+当前阻塞任务 2 个，逾期未完成任务 5 个，需要组长重点跟进。
+
+四、下周工作建议
+建议优先处理阻塞任务，补充进度记录，并在每周例会中同步风险。</pre></td></tr><tr><td>SUMMARY_REPORT</td><td>MEDIUM</td><td>2026-06-10T15:43</td><td><pre>项目已建立完整分工，需求和数据库已通过评审，下一阶段应聚焦接口联调、测试闭环和导出准备。</pre></td></tr><tr><td>DOC_CHECK</td><td>LOW</td><td>2026-06-10T15:43</td><td><pre>缺失项：测试与缺陷、项目总结为空；API、前端实现、后端实现仍为草稿；原型设计待评审。</pre></td></tr><tr><td>RISK_ANALYSIS</td><td>MEDIUM</td><td>2026-06-10T15:43</td><td><pre>风险等级：中。主要风险来自后端权限矩阵读取阻塞、测试用例尚未开始、接口字段仍待稳定。建议项目经理组织一次权限码和 API 契约对齐。</pre></td></tr><tr><td>WEEKLY_REPORT</td><td>MEDIUM</td><td>2026-06-10T15:43</td><td><pre>本周完成需求、用例、数据库章节，原型进入评审，前后端实现推进中。建议优先解除权限矩阵读取阻塞。</pre></td></tr></tbody></table><h2>统计摘要</h2><table><thead><tr><th>总体得分</th><th>章节完成</th><th>审核通过</th><th>任务完成</th><th>缺陷闭环</th><th>总结/导出就绪</th></tr></thead><tbody><tr><td>49.33</td><td>13.33</td><td>20.00</td><td>4.00</td><td>0.00</td><td>12.00</td></tr></tbody></table><h3>扣分原因</h3><ul><li>必填章节完成不足：4/9</li><li>任务完成率不足：2/10</li><li>存在逾期未完成任务：5 个</li><li>阻塞/缺陷任务仍未闭环：4 个</li><li>进度报告提交不完整，缺口约 6 人次</li></ul><h3>成员贡献</h3><table><thead><tr><th>成员</th><th>角色</th><th>总分</th><th>任务</th><th>文档</th><th>进度</th><th>评审</th><th>缺陷</th></tr></thead><tbody><tr><td>张经理</td><td>项目经理</td><td>27.04</td><td>5.45</td><td>1.54</td><td>5.63</td><td>6.92</td><td>7.50</td></tr><tr><td>陈产品</td><td>产品经理</td><td>23.51</td><td>14.55</td><td>6.15</td><td>2.81</td><td>0.00</td><td>0.00</td></tr><tr><td>王后端</td><td>后端开发</td><td>19.96</td><td>14.55</td><td>1.03</td><td>1.88</td><td>0.00</td><td>2.50</td></tr><tr><td>李前端</td><td>前端开发</td><td>11.32</td><td>3.64</td><td>4.10</td><td>2.81</td><td>0.77</td><td>0.00</td></tr><tr><td>孙测试</td><td>测试负责人</td><td>3.70</td><td>1.82</td><td>0.00</td><td>1.88</td><td>0.00</td><td>0.00</td></tr><tr><td>杜总监</td><td>技术总监</td><td>3.08</td><td>0.00</td><td>3.08</td><td>0.00</td><td>0.00</td><td>0.00</td></tr><tr><td>林奕宇</td><td>前端开发</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr></tbody></table><h3>风险趋势</h3><table><thead><tr><th>时间</th><th>等级</th><th>分值</th><th>逾期任务</th><th>阻塞任务</th><th>缺失报告</th><th>驳回章节</th><th>趋势</th></tr></thead><tbody><tr><td>2026-05-24T22:30</td><td>MEDIUM</td><td>62.50</td><td>1</td><td>1</td><td>0</td><td>0</td><td>UP</td></tr><tr><td>2026-05-25T22:30</td><td>MEDIUM</td><td>58.00</td><td>1</td><td>1</td><td>0</td><td>0</td><td>STABLE</td></tr><tr><td>2026-06-13T23:48:56</td><td>HIGH</td><td>100.00</td><td>5</td><td>2</td><td>6</td><td>0</td><td>UP</td></tr><tr><td>2026-06-14T01:09:06</td><td>HIGH</td><td>100.00</td><td>5</td><td>3</td><td>6</td><td>0</td><td>UP</td></tr><tr><td>2026-06-14T10:18:43</td><td>HIGH</td><td>100.00</td><td>5</td><td>4</td><td>6</td><td>0</td><td>UP</td></tr></tbody></table></body></html>

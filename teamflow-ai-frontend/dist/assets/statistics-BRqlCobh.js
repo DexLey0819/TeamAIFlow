@@ -1,0 +1,1 @@
+import{r as e}from"./request-Cjz8GRZO.js";const o=t=>e.get(`/projects/${t}/completeness`),r=t=>e.get(`/projects/${t}/contribution`),c=t=>e.get(`/projects/${t}/risk-trend`);export{r as a,o as c,c as r};

@@ -1,0 +1,52 @@
+<h2>TeamFlowAI 改造范围确认</h2>
+<p class="subtitle">根据需求文档 V1.0，我把当前项目和目标系统拆成三个可执行范围。先确认范围，再进入详细设计和代码修改。</p>
+
+<div class="section">
+  <h3>当前项目已经具备的基础</h3>
+  <div class="cards">
+    <div class="card">
+      <div class="card-body">
+        <h3>已实现</h3>
+        <p>登录注册、JWT 鉴权、项目/成员/任务/进度/文件、任务看板、AI 周报/风险/总结、教师看板、MySQL 初始化脚本。</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>主要缺口</h3>
+        <p>五种项目模式、项目模板、加入申请审核、项目板块文档、角色-板块权限、通知中心、文档缺失检查、导出、完整度/贡献/风险趋势。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>你希望这次改到什么程度？</h3>
+  <div class="options">
+    <div class="option" data-choice="p0" onclick="toggleSelect(this)">
+      <div class="letter">A</div>
+      <div class="content">
+        <h3>P0 主流程闭环</h3>
+        <p>实现文档验收标准中的必须项：项目模式向导、角色人数、加入申请/审核、项目板块、任务、进度汇报、AI 四项能力、导出。</p>
+      </div>
+    </div>
+    <div class="option" data-choice="p0-p1" onclick="toggleSelect(this)">
+      <div class="letter">B</div>
+      <div class="content">
+        <h3>P0 + 重点加分</h3>
+        <p>在 A 的基础上继续做完整度评分、成员贡献统计、风险趋势图、通知中心、模板管理。工程量明显更大，但更贴近文档完整愿景。</p>
+      </div>
+    </div>
+    <div class="option" data-choice="demo-polish" onclick="toggleSelect(this)">
+      <div class="letter">C</div>
+      <div class="content">
+        <h3>答辩演示优先</h3>
+        <p>优先把前端页面、数据库种子和本地演示逻辑补齐，部分复杂能力采用可演示的轻量实现，适合课程项目快速交付。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>推荐</h3>
+  <p>我建议选 <strong>C：答辩演示优先</strong> 或 <strong>A：P0 主流程闭环</strong>。如果时间有限，C 最稳；如果你要严格对齐文档验收，A 更合适。</p>
+</div>

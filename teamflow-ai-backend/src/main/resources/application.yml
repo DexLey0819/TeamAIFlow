@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: teamflow-ai
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/teamflow_ai?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:root1234}
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 50MB
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  type-aliases-package: com.example.teamflow.entity
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+
+jwt:
+  secret: ${JWT_SECRET:teamflow-ai-secret-key-teamflow-ai-secret-key}
+  expire: ${JWT_EXPIRE:86400000}
+
+file:
+  upload-path: ${TEAMFLOW_UPLOAD_PATH:./upload/}
+
+ai:
+  provider: ${AI_PROVIDER:zhipu}
+  api-key: ${AI_API_KEY:}
+  api-url: ${AI_API_URL:https://open.bigmodel.cn/api/paas/v4/chat/completions}
+  model: ${AI_MODEL:glm-4}
+
+github:
+  token: ${GITHUB_TOKEN:}
+
+knife4j:
+  enable: true

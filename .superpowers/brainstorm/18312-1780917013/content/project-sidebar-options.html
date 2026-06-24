@@ -1,0 +1,67 @@
+<h2>项目打开后的侧边栏结构</h2>
+<p class="subtitle">请重点看左侧导航层级：顶部“首页”、中间“项目详情”、底部“具体章节”。点击你更倾向的方案。</p>
+
+<div class="cards">
+  <div class="card" data-choice="replace-global-sidebar" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="display:flex;height:360px;background:#f6f7f9;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden">
+        <div style="width:220px;background:#fff;border-right:1px solid #d9dde3;padding:18px 14px">
+          <div style="display:flex;gap:10px;align-items:center;font-size:20px;font-weight:700;margin-bottom:28px">⌂ 首页</div>
+          <div style="font-size:18px;font-weight:700;margin:18px 0 12px">☷ 目录</div>
+          <div style="padding:10px 0;color:#475467">▸ 项目详情</div>
+          <div style="padding-left:20px;color:#667085;font-size:13px;line-height:1.9">概述<br>成员与申请<br>权限矩阵<br>附件<br>任务<br>进度<br>AI<br>统计<br>导出</div>
+          <div style="margin-top:16px;padding:10px 0;color:#475467">▾ 项目章节</div>
+          <div style="padding-left:20px;font-size:13px;line-height:1.9">需求分析<br>用例设计<br>原型设计<br>数据库设计<br>接口设计</div>
+        </div>
+        <div style="flex:1;padding:18px">
+          <div style="height:44px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:16px"></div>
+          <div style="height:220px;background:#fff;border:1px solid #e5e7eb;border-radius:8px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. 项目页替换全局侧边栏</h3>
+      <p>进入项目后，左侧完全变成项目目录；点击“首页”回到全局工作台或项目列表。</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>优点</h4><ul><li>最接近你给的截图</li><li>项目内沉浸感强</li><li>章节跳转最直观</li></ul></div>
+        <div class="cons"><h4>代价</h4><ul><li>需要调整 Layout 和项目页结构</li><li>全局菜单在项目内不可直接见</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="nested-project-sidebar" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="display:flex;height:360px;background:#f6f7f9;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden">
+        <div style="width:150px;background:#111827;color:#cbd5e1;padding:18px 12px">
+          <div style="color:#fff;font-weight:800;margin-bottom:24px">TeamFlowAI</div>
+          <div style="line-height:2.2;font-size:13px">工作台<br>个人信息<br>项目管理<br>通知中心</div>
+        </div>
+        <div style="width:210px;background:#fff;border-right:1px solid #d9dde3;padding:18px 14px">
+          <div style="display:flex;gap:10px;align-items:center;font-size:18px;font-weight:700;margin-bottom:24px">⌂ 首页</div>
+          <div style="font-size:17px;font-weight:700;margin-bottom:12px">☷ 项目目录</div>
+          <div style="padding:9px 0;color:#475467">▾ 项目详情</div>
+          <div style="padding-left:18px;color:#667085;font-size:12px;line-height:1.9">概述<br>成员与申请<br>权限矩阵<br>任务<br>统计</div>
+          <div style="padding:9px 0;color:#475467">▾ 具体章节</div>
+          <div style="padding-left:18px;font-size:12px;line-height:1.9">需求分析<br>用例设计<br>接口设计</div>
+        </div>
+        <div style="flex:1;padding:18px">
+          <div style="height:44px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:16px"></div>
+          <div style="height:220px;background:#fff;border:1px solid #e5e7eb;border-radius:8px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. 保留全局侧栏，再加项目目录侧栏</h3>
+      <p>全局导航一直存在；项目打开后，内容区左侧多出一个项目目录。</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>优点</h4><ul><li>全局导航不丢失</li><li>改动较可控</li><li>项目结构清晰</li></ul></div>
+        <div class="cons"><h4>代价</h4><ul><li>左侧占用更宽</li><li>和截图相比层级更复杂</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>我目前的推荐</h3>
+  <p>推荐 A：项目页替换全局侧边栏。它更符合你给出的截图，并且“项目详情 + 具体章节”的层级会更安静、清楚。实现时保留一个“首页”入口返回全局工作台。</p>
+</div>

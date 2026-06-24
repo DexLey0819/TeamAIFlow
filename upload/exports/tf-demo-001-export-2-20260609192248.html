@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>TeamFlowAI 课程项目协作系统 导出</title><style>body{font-family:Arial,sans-serif;margin:32px;color:#222;line-height:1.6;}h1,h2,h3{color:#111;}table{width:100%;border-collapse:collapse;margin:12px 0 24px;}th,td{border:1px solid #d9d9d9;padding:8px;vertical-align:top;text-align:left;}th{background:#f5f5f5;}pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;padding:12px;border:1px solid #eee;}.meta{margin-bottom:24px;padding:16px;background:#fafafa;border:1px solid #eee;}</style></head><body><h1>TeamFlowAI 课程项目协作系统 导出报告</h1><div class="meta"><div>课程：软件工程综合实践</div><div>项目编码：TF-DEMO-001</div><div>状态：DEVELOPING</div><div>完整度检查：44.38</div><div>导出时间：2026-06-09T19:22:48.845824</div></div><h2>章节内容</h2><table><thead><tr><th>章节</th><th>状态</th><th>标题</th><th>正文</th></tr></thead><tbody><tr><td>需求分析</td><td>DRAFT</td><td>TeamFlowAI 需求分析说明书</td><td><pre>目标是支持课程项目小组完成项目创建、成员协作、任务跟踪、进度汇报、AI 风险分析和成果导出。核心用户包括学生、教师和管理员。
+
+![avatar.png](/api/files/inline/4)
+
+
+```teamflow-chart
+{
+  &quot;type&quot;: &quot;bar&quot;,
+  &quot;title&quot;: &quot;图表标题&quot;,
+  &quot;categories&quot;: [&quot;类别 A&quot;,&quot;类别 B&quot;,&quot;类别 C&quot;],
+  &quot;series&quot;: [
+    { &quot;name&quot;: &quot;数值&quot;, &quot;data&quot;: [3,5,2] }
+  ]
+}
+```
+
+
+| A | B |
+| --- | --- |
+| 示例 A | 示例 B |
+
+
+```plantuml
+@startuml
+用户 -&gt; 系统: 提交内容
+系统 --&gt; 用户: 返回结果
+@enduml
+```
+
+![avatar.png](/api/files/inline/5)</pre></td></tr><tr><td>用例设计</td><td>APPROVED</td><td>核心用例设计</td><td><pre>核心用例包括登录注册、创建项目、申请加入项目、审核申请、维护章节、任务流转、提交周报、生成 AI 报告和导出成果。</pre></td></tr><tr><td>原型设计</td><td>REVIEWING</td><td>低保真原型设计</td><td><pre>已完成工作台、项目详情、成员申请、章节协作、任务看板、进度报告、AI 中心、统计和导出页面原型。</pre></td></tr><tr><td>数据库设计</td><td>APPROVED</td><td>数据库设计文档</td><td><pre>数据库围绕模板、项目、角色、成员、申请、章节、任务、进度、AI 记录、风险快照、通知和导出记录设计。</pre></td></tr><tr><td>接口设计</td><td>DRAFT</td><td>接口设计草稿</td><td><pre>接口按认证、模板、项目初始化、申请审核、权限、章节、任务、进度、AI、统计、通知、导出和教师看板分组。</pre></td></tr><tr><td>前端实现</td><td>DRAFT</td><td>前端实现记录</td><td><pre>前端使用 Vue 3、Vite、Element Plus、Pinia、Axios 和 ECharts，当前正在搭建项目空间导航和任务看板。</pre></td></tr><tr><td>后端实现</td><td>DRAFT</td><td>后端实现记录</td><td><pre>后端使用 Spring Boot 3、Spring Security、JWT、MyBatis-Plus 和 MySQL 8，当前正在重建领域模型。</pre></td></tr><tr><td>测试与缺陷</td><td>EMPTY</td><td></td><td><pre></pre></td></tr><tr><td>项目总结</td><td>EMPTY</td><td></td><td><pre></pre></td></tr></tbody></table><h2>任务清单</h2><table><thead><tr><th>标题</th><th>状态</th><th>优先级</th><th>负责人</th><th>截止日期</th><th>阻塞原因</th></tr></thead><tbody><tr><td>完成需求分析章节</td><td>DONE</td><td>HIGH</td><td>陈产品</td><td>2026-05-08</td><td></td></tr><tr><td>重建数据库初始化脚本</td><td>DONE</td><td>URGENT</td><td>王后端</td><td>2026-05-12</td><td></td></tr><tr><td>绘制低保真原型</td><td>REVIEW</td><td>HIGH</td><td>陈产品</td><td>2026-05-15</td><td></td></tr><tr><td>设计后端 API 契约</td><td>IN_PROGRESS</td><td>HIGH</td><td>王后端</td><td>2026-05-24</td><td></td></tr><tr><td>排查后端权限校验阻塞</td><td>BLOCKED</td><td>HIGH</td><td>王后端</td><td>2026-05-25</td><td>角色权限矩阵尚未完成后端落库读取。</td></tr><tr><td>搭建前端项目空间导航</td><td>IN_PROGRESS</td><td>MEDIUM</td><td>李前端</td><td>2026-05-26</td><td></td></tr><tr><td>编写接口测试用例</td><td>TODO</td><td>MEDIUM</td><td>孙测试</td><td>2026-05-28</td><td></td></tr></tbody></table><h2>进度记录</h2><table><thead><tr><th>成员</th><th>周期</th><th>提交状态</th><th>完成内容</th><th>问题</th><th>下周计划</th></tr></thead><tbody><tr><td>孙测试</td><td>2026-W21</td><td>SUPPLEMENTED</td><td>整理测试范围和接口测试用例框架。</td><td>测试数据依赖数据库新脚本。</td><td>补充申请审核和任务流转测试用例。</td></tr><tr><td>王后端</td><td>2026-W21</td><td>LATE</td><td>完成数据库模型和部分 API 契约。</td><td>权限矩阵读取逻辑阻塞任务 7。</td><td>完成项目初始化、章节权限和申请审核接口。</td></tr><tr><td>李前端</td><td>2026-W21</td><td>NORMAL</td><td>完成前端项目空间导航和任务看板初稿。</td><td>部分接口字段仍待后端确认。</td><td>接入章节列表和通知中心接口。</td></tr><tr><td>陈产品</td><td>2026-W21</td><td>NORMAL</td><td>完成低保真原型和核心用例说明。</td><td>通知中心空状态还需补充。</td><td>根据评审意见补充原型说明。</td></tr><tr><td>张经理</td><td>2026-W21</td><td>NORMAL</td><td>完成任务拆分、成员申请规则确认和风险跟踪。</td><td>后端权限矩阵读取还未闭环。</td><td>推进 AI 风险分析和导出验收规则。</td></tr></tbody></table><h2>AI 记录</h2><table><thead><tr><th>类型</th><th>风险等级</th><th>生成时间</th><th>结果</th></tr></thead><tbody><tr><td>WEEKLY_REPORT</td><td></td><td>2026-06-09T19:20:56</td><td><pre>一、本周项目进展
+TeamFlowAI 课程项目协作系统 当前共有 7 个任务，已完成 2 个，已提交进度记录 5 条。
+
+二、成员与文档情况
+当前已配置 5 个角色、5 名成员，项目文件 5 份，可据此持续补充周报证据。
+
+三、存在的问题
+当前阻塞任务 1 个，逾期未完成任务 5 个，需要组长重点跟进。
+
+四、下周工作建议
+建议优先处理阻塞任务，补充进度记录，并在每周例会中同步风险。</pre></td></tr><tr><td>SUMMARY_REPORT</td><td>MEDIUM</td><td>2026-06-09T18:31:12</td><td><pre>项目已建立完整分工，需求和数据库已通过评审，下一阶段应聚焦接口联调、测试闭环和导出准备。</pre></td></tr><tr><td>DOC_CHECK</td><td>LOW</td><td>2026-06-09T18:31:12</td><td><pre>缺失项：测试与缺陷、项目总结为空；API、前端实现、后端实现仍为草稿；原型设计待评审。</pre></td></tr><tr><td>RISK_ANALYSIS</td><td>MEDIUM</td><td>2026-06-09T18:31:12</td><td><pre>风险等级：中。主要风险来自后端权限矩阵读取阻塞、测试用例尚未开始、接口字段仍待稳定。建议项目经理组织一次权限码和 API 契约对齐。</pre></td></tr><tr><td>WEEKLY_REPORT</td><td>MEDIUM</td><td>2026-06-09T18:31:12</td><td><pre>本周完成需求、用例、数据库章节，原型进入评审，前后端实现推进中。建议优先解除权限矩阵读取阻塞。</pre></td></tr></tbody></table><h2>统计摘要</h2><table><thead><tr><th>总体得分</th><th>章节完成</th><th>审核通过</th><th>任务完成</th><th>缺陷闭环</th><th>总结/导出就绪</th></tr></thead><tbody><tr><td>44.38</td><td>6.67</td><td>20.00</td><td>5.71</td><td>0.00</td><td>12.00</td></tr></tbody></table><h3>扣分原因</h3><ul><li>必填章节完成不足：2/9</li><li>任务完成率不足：2/7</li><li>存在逾期未完成任务：5 个</li><li>阻塞/缺陷任务仍未闭环：1 个</li><li>进度报告提交不完整，缺口约 5 人次</li></ul><h3>成员贡献</h3><table><thead><tr><th>成员</th><th>角色</th><th>总分</th><th>任务</th><th>文档</th><th>进度</th><th>评审</th><th>缺陷</th></tr></thead><tbody><tr><td>王后端</td><td>后端开发</td><td>33.72</td><td>16.84</td><td>4.57</td><td>2.31</td><td>0.00</td><td>10.00</td></tr><tr><td>陈产品</td><td>产品经理</td><td>26.59</td><td>16.84</td><td>6.29</td><td>3.46</td><td>0.00</td><td>0.00</td></tr><tr><td>张经理</td><td>项目经理</td><td>19.35</td><td>0.00</td><td>8.00</td><td>3.46</td><td>7.89</td><td>0.00</td></tr><tr><td>李前端</td><td>前端开发</td><td>10.39</td><td>4.21</td><td>1.14</td><td>3.46</td><td>1.58</td><td>0.00</td></tr><tr><td>孙测试</td><td>测试负责人</td><td>4.42</td><td>2.11</td><td>0.00</td><td>2.31</td><td>0.00</td><td>0.00</td></tr></tbody></table><h3>风险趋势</h3><table><thead><tr><th>时间</th><th>等级</th><th>分值</th><th>逾期任务</th><th>阻塞任务</th><th>缺失报告</th><th>驳回章节</th><th>趋势</th></tr></thead><tbody><tr><td>2026-05-24T22:30</td><td>MEDIUM</td><td>62.50</td><td>1</td><td>1</td><td>0</td><td>0</td><td>UP</td></tr><tr><td>2026-05-25T22:30</td><td>MEDIUM</td><td>58.00</td><td>1</td><td>1</td><td>0</td><td>0</td><td>STABLE</td></tr></tbody></table></body></html>

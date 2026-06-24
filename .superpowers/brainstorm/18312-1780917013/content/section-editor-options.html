@@ -1,0 +1,100 @@
+<h2>章节编辑器与插入工具</h2>
+<p class="subtitle">这一步确认“编辑模式”和“插入图表/表格/PlantUML”的交互方式。请选择更适合课程项目文档编辑的方案。</p>
+
+<div class="cards">
+  <div class="card" data-choice="lightweight-toolbar" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:390px;background:#f6f7f9;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;padding:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px;margin-bottom:12px">
+          <div>
+            <div style="font-weight:800">需求分析</div>
+            <div style="font-size:12px;color:#667085;margin-top:4px">查看模式 · 草稿</div>
+          </div>
+          <button class="mock-button">编辑</button>
+        </div>
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:10px;margin-bottom:10px;display:flex;gap:8px">
+          <button class="mock-button">表格</button>
+          <button class="mock-button">图表</button>
+          <button class="mock-button">PlantUML</button>
+          <button class="mock-button">代码块</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px;height:245px">
+            <div style="font-size:12px;color:#667085;margin-bottom:8px">Markdown / 文本编辑区</div>
+            <div style="height:28px;background:#eef2f7;border-radius:6px;margin-bottom:8px"></div>
+            <div style="height:150px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:6px;padding:10px;color:#667085;font-size:12px;line-height:1.7">
+              ## 用户角色<br>
+              | 角色 | 职责 |<br>
+              | 项目经理 | 计划与审核 |<br><br>
+              @startuml<br>
+              Alice -> Bob: 审核章节<br>
+              @enduml
+            </div>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px;height:245px">
+            <div style="font-size:12px;color:#667085;margin-bottom:8px">预览区</div>
+            <div style="height:70px;border:1px solid #e5e7eb;border-radius:6px;margin-bottom:10px;padding:8px;font-size:12px">表格预览</div>
+            <div style="height:100px;border:1px solid #e5e7eb;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#475467">PlantUML 图预览</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. 轻量工具栏 + 文本插入</h3>
+      <p>点击“编辑”后启用输入框和插入按钮。表格/图表/PlantUML 按钮向正文插入模板，预览区即时渲染。</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>优点</h4><ul><li>实现最快</li><li>学习成本低</li><li>保留纯文本存储</li></ul></div>
+        <div class="cons"><h4>代价</h4><ul><li>复杂排版能力有限</li><li>PlantUML 编辑体验一般</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="dedicated-plantuml-panel" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:390px;background:#f6f7f9;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;padding:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px;margin-bottom:12px">
+          <div>
+            <div style="font-weight:800">接口设计</div>
+            <div style="font-size:12px;color:#667085;margin-top:4px">编辑模式 · 未保存修改</div>
+          </div>
+          <div style="display:flex;gap:8px"><button class="mock-button">保存</button><button class="mock-button">退出编辑</button></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1.2fr .8fr;gap:12px">
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px;height:300px">
+            <div style="display:flex;gap:8px;margin-bottom:10px">
+              <button class="mock-button">插入表格</button>
+              <button class="mock-button">插入图表</button>
+              <button class="mock-button">插入 PlantUML</button>
+            </div>
+            <div style="height:235px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:6px;padding:10px;color:#667085;font-size:12px;line-height:1.7">
+              正文章节内容...<br><br>
+              [PlantUML: 登录流程]<br>
+              用户 -> 前端: 提交账号密码<br>
+              前端 -> 后端: POST /auth/login<br>
+              后端 -> 前端: JWT
+            </div>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px;height:300px">
+            <div style="font-weight:700;margin-bottom:8px">PlantUML 小编辑器</div>
+            <div style="height:105px;background:#111827;color:#d1d5db;border-radius:6px;padding:10px;font-size:11px;line-height:1.5">@startuml<br>用户 -> 前端: 登录<br>前端 -> 后端: 校验<br>@enduml</div>
+            <div style="height:105px;border:1px solid #e5e7eb;border-radius:6px;margin-top:10px;display:flex;align-items:center;justify-content:center;color:#475467">实时绘图预览</div>
+            <button class="mock-button" style="margin-top:10px;width:100%">插入到正文</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. 正文编辑 + PlantUML 小编辑器面板</h3>
+      <p>普通内容仍在主编辑区；PlantUML 有独立代码框和预览区，确认后插入正文。</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>优点</h4><ul><li>PlantUML 体验更清楚</li><li>适合复杂流程图</li><li>错误反馈更好做</li></ul></div>
+        <div class="cons"><h4>代价</h4><ul><li>实现量更大</li><li>页面区域更复杂</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>我目前的推荐</h3>
+  <p>推荐 B：正文编辑 + PlantUML 小编辑器面板。你的需求明确提到“小型 PlantUML 编辑器”和网页内直接绘图，B 更符合这个目标。第一版可以先用本地 SVG 渲染占位或 PlantUML 编码 URL 预览，后续再增强图表类型。</p>
+</div>

@@ -1,0 +1,1 @@
+import{r as s}from"./request-Cjz8GRZO.js";const i=p=>s.get(`/projects/join/${p}`),r=(p,o)=>s.post(`/projects/${p}/join-apply`,o),j=p=>s.get(`/projects/${p}/join-applies`),n=(p,o,e)=>s.put(`/projects/${p}/join-applies/${o}/approve`,e),a=(p,o,e)=>s.put(`/projects/${p}/join-applies/${o}/reject`,e);export{n as a,i as b,j,a as r,r as s};

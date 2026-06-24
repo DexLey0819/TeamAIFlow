@@ -1,0 +1,470 @@
+:root {
+  /* Element Plus Variables Overrides - Premium Monochrome & Zinc Palette (shadcn/ui style) */
+  --el-color-primary: #09090b; /* Deep Obsidian Black */
+  --el-color-primary-light-3: #27272a;
+  --el-color-primary-light-5: #3f3f46;
+  --el-color-primary-light-7: #52525b;
+  --el-color-primary-light-8: #71717a;
+  --el-color-primary-light-9: #f4f4f5;
+  --el-color-primary-dark-2: #09090b;
+
+  --el-color-success: #10b981; /* Soft Emerald */
+  --el-color-success-light-9: #ecfdf5;
+  --el-color-warning: #f59e0b; /* Soft Amber */
+  --el-color-warning-light-9: #fffbeb;
+  --el-color-danger: #ef4444; /* Soft Rose/Red */
+  --el-color-danger-light-9: #fef2f2;
+  --el-color-info: #71717a; /* Zinc Grey */
+  --el-color-info-light-9: #fafafa;
+
+  --el-border-radius-base: 8px;
+  --el-border-radius-small: 4px;
+  --el-border-radius-round: 9999px;
+
+  --el-box-shadow-light: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+  --el-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+  --el-box-shadow-extra-light: 0 1px 3px 0 rgba(0, 0, 0, 0.01);
+
+  --el-bg-color: #fafafa; /* Soft industrial silver-gray */
+  --el-bg-color-overlay: #ffffff; /* Crisp pure white */
+  --el-text-color-primary: #09090b; /* Dark charcoal */
+  --el-text-color-regular: #27272a;
+  --el-text-color-secondary: #71717a;
+  --el-text-color-placeholder: #a1a1aa;
+
+  --el-border-color: #e4e4e7; /* Thin slate border */
+  --el-border-color-light: #f4f4f5;
+  --el-border-color-extra-light: #fafafa;
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Active states & Hover offsets */
+  --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+/* Base resets & typography */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--el-bg-color);
+  color: var(--el-text-color-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: #09090b;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.15s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Page Structure */
+.page {
+  padding: 32px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--el-border-color);
+  padding-bottom: 16px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--el-text-color-primary);
+}
+
+.page-subtitle {
+  margin: 4px 0 0;
+  color: var(--el-text-color-secondary);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Grid Utilities */
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Panels (Cards) */
+.panel {
+  background: var(--el-bg-color-overlay);
+  border: 1px solid var(--el-border-color);
+  border-radius: var(--el-border-radius-base);
+  padding: 20px;
+  box-shadow: var(--el-box-shadow-light);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.panel:hover {
+  border-color: var(--el-border-color);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--el-border-color-light);
+}
+
+.panel-head h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--el-text-color-primary);
+  letter-spacing: -0.02em;
+}
+
+/* Toolbars */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.muted {
+  color: var(--el-text-color-secondary);
+}
+
+/* Kanban Board Refinements */
+.kanban {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(240px, 1fr));
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.kanban-column {
+  min-height: 480px;
+  background: #fdfdfd;
+  border: 1px solid var(--el-border-color);
+  border-radius: var(--el-border-radius-base);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kanban-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--el-border-color-light);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--el-text-color-primary);
+  letter-spacing: -0.01em;
+}
+
+.kanban-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--el-border-color);
+  border-radius: 2px;
+}
+
+/* Element Plus Custom Overrides */
+.el-card {
+  border: 1px solid var(--el-border-color) !important;
+  box-shadow: var(--el-box-shadow-light) !important;
+  border-radius: var(--el-border-radius-base) !important;
+}
+
+.el-card:hover {
+  box-shadow: var(--card-shadow-hover) !important;
+}
+
+.el-table {
+  --el-table-header-bg-color: #fafafa;
+  --el-table-row-hover-bg-color: #f4f4f5;
+  border-radius: var(--el-border-radius-base) !important;
+  overflow: hidden;
+  border: 1px solid var(--el-border-color) !important;
+}
+
+.el-table th {
+  font-weight: 600 !important;
+  color: var(--el-text-color-primary) !important;
+  font-size: 13px !important;
+}
+
+.el-table td {
+  font-size: 13px !important;
+}
+
+/* Button & Form refinements */
+.el-button {
+  font-weight: 550 !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  transition: all 0.15s ease !important;
+}
+
+.el-button--primary {
+  background-color: #09090b !important;
+  border-color: #09090b !important;
+  color: #ffffff !important;
+}
+
+.el-button--primary:not(.is-disabled):hover {
+  background-color: #27272a !important;
+  border-color: #27272a !important;
+  transform: translateY(-0.5px);
+}
+
+.el-button--success {
+  background-color: #10b981 !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+}
+
+.el-button--success:not(.is-disabled):hover {
+  background-color: #059669 !important;
+  border-color: #059669 !important;
+  transform: translateY(-0.5px);
+}
+
+.el-input__inner {
+  border-radius: 6px !important;
+  font-size: 13px !important;
+}
+
+.el-input__wrapper {
+  border-radius: 6px !important;
+  box-shadow: 0 0 0 1px var(--el-border-color) inset !important;
+}
+
+.el-input__wrapper:hover {
+  box-shadow: 0 0 0 1px var(--el-text-color-placeholder) inset !important;
+}
+
+.el-input__wrapper.is-focus {
+  box-shadow: 0 0 0 1px #09090b inset !important;
+}
+
+.el-tag {
+  border-radius: 4px !important;
+  font-weight: 550 !important;
+  border: 1px solid var(--el-border-color) !important;
+  background-color: #fafafa !important;
+  color: #27272a !important;
+}
+
+.el-tag--success {
+  background-color: #ecfdf5 !important;
+  color: #047857 !important;
+  border-color: #a7f3d0 !important;
+}
+
+.el-tag--warning {
+  background-color: #fffbeb !important;
+  color: #b45309 !important;
+  border-color: #fde68a !important;
+}
+
+.el-tag--danger {
+  background-color: #fef2f2 !important;
+  color: #b91c1c !important;
+  border-color: #fca5a5 !important;
+}
+
+/* Layout Sidebar Style (Aside & Menus) - Pure White Vercel Style Sidebar */
+.layout .aside {
+  background-color: #ffffff !important;
+  border-right: 1px solid var(--el-border-color);
+}
+
+.layout .brand {
+  height: 64px;
+  padding: 0 27px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #09090b;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--el-border-color);
+  background: none;
+  -webkit-text-fill-color: initial;
+  transition: padding 0.3s ease, justify-content 0.3s ease;
+}
+
+.layout .aside:has(.el-menu--collapse) .brand {
+  justify-content: center;
+  padding: 0 !important;
+}
+
+.layout .el-menu:not(.el-menu--collapse) {
+  border-right: none !important;
+  background-color: #ffffff !important;
+  padding: 12px 12px;
+}
+
+.layout .el-menu.el-menu--collapse {
+  border-right: none !important;
+  background-color: #ffffff !important;
+  padding: 12px 0;
+}
+
+.layout .el-menu-item,
+.layout .el-sub-menu__title {
+  height: 38px !important;
+  line-height: 38px !important;
+  margin: 2px 0 !important;
+  border-radius: 6px !important;
+  color: #52525b !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  transition: all 0.15s ease !important;
+}
+
+.layout .el-menu-item:hover,
+.layout .el-sub-menu__title:hover {
+  color: #09090b !important;
+  background-color: #f4f4f5 !important;
+}
+
+.layout .el-menu-item.is-active {
+  color: #09090b !important;
+  background-color: #f4f4f5 !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.layout .el-sub-menu {
+  margin-bottom: 4px;
+}
+
+/* Header style styling */
+.layout .header {
+  height: 64px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--el-border-color);
+  padding: 0 32px !important;
+}
+
+.layout .header strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--el-text-color-primary);
+}
+
+.layout .header p {
+  font-size: 11px !important;
+  color: #71717a !important;
+  margin-top: 2px !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  .grid-4, .grid-3, .grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .kanban {
+    grid-template-columns: repeat(5, 260px);
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 16px;
+  }
+  .grid-4, .grid-3, .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Collapsed sidebar popup styles overrides */
+.el-menu--popup {
+  background-color: #ffffff !important;
+  border: 1px solid var(--el-border-color) !important;
+  border-radius: var(--el-border-radius-base) !important;
+  box-shadow: var(--card-shadow-hover) !important;
+  padding: 4px !important;
+}
+
+.el-menu--popup .el-menu-item {
+  color: #52525b !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  margin: 2px 0 !important;
+}
+
+.el-menu--popup .el-menu-item:hover {
+  color: #09090b !important;
+  background-color: #f4f4f5 !important;
+}
+
+.el-menu--popup .el-menu-item.is-active {
+  color: #09090b !important;
+  background-color: #f4f4f5 !important;
+  font-weight: 600 !important;
+}
