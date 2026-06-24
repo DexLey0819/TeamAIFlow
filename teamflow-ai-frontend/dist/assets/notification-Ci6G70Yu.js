@@ -1,0 +1,1 @@
+import{r as t}from"./request-CqC61Zb-.js";const i=()=>t.get("/notifications"),n=()=>t.get("/notifications/unread-count"),s=o=>t.put(`/notifications/${o}/read`),c=()=>t.put("/notifications/read-all");export{s as a,c as m,i as n,n as u};

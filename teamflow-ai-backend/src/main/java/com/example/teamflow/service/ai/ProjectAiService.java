@@ -61,6 +61,7 @@ public class ProjectAiService {
 
     private AiRecordVO generate(Long projectId, String type) {
         Project project = projectService.getProject(projectId);
+        projectService.ensureManager(project);
         ProjectAiContext context = aiContextBuilder.build(project);
         String prompt = buildPrompt(project, context, type);
         String result;

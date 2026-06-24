@@ -1,0 +1,1 @@
+import{r as t}from"./request-CqC61Zb-.js";const e=()=>t.get("/progress/need-submit"),o=s=>t.post("/progress/report",s),p=s=>t.get(`/projects/${s}/progress-status`),g=s=>t.get(`/projects/${s}/progress-records`);export{g as l,e as n,p,o as s};

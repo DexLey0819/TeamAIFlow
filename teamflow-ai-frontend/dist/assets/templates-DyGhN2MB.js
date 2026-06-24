@@ -1,1 +1,0 @@
-import{r as t}from"./request-Cjz8GRZO.js";const s=()=>t.get("/project-templates"),o=e=>t.get(`/project-templates/${e}`),m=()=>t.get("/admin/project-templates"),r=(e,a)=>t.put(`/admin/project-templates/${e}`,a);export{m as a,s as b,o as p,r as u};

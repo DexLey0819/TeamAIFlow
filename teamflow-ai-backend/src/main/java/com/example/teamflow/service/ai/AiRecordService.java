@@ -26,7 +26,8 @@ public class AiRecordService {
     private final ProjectService projectService;
 
     public List<AiRecordVO> records(Long projectId) {
-        projectService.getProject(projectId);
+        Project project = projectService.getProject(projectId);
+        projectService.ensureManager(project);
         return aiRecordMapper.selectList(new LambdaQueryWrapper<AiRecord>()
                         .eq(AiRecord::getProjectId, projectId)
                         .orderByDesc(AiRecord::getCreateTime))

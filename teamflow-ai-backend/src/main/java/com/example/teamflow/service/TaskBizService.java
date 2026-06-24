@@ -18,6 +18,8 @@ import com.example.teamflow.mapper.TaskLogMapper;
 import com.example.teamflow.mapper.TaskMapper;
 import com.example.teamflow.vo.TaskLogVO;
 import com.example.teamflow.vo.TaskVO;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +49,7 @@ public class TaskBizService {
     private final AuthService authService;
     private final ProjectService projectService;
     private final NotificationService notificationService;
+    private final ObjectMapper objectMapper;
 
     @Transactional
     public TaskVO create(TaskDTO dto) {
@@ -441,5 +444,110 @@ public class TaskBizService {
 
     private String taskLink(Task task) {
         return "/projects/" + task.getProjectId() + "/tasks/" + task.getId();
+    }
+
+    @Transactional
+    public void syncTasksFromWbs(Long projectId) {
+        Project project = projectService.getProject(projectId);
+        projectService.ensureManager(project);
+
+        String wbsData = project.getWbsData();
+        if (!StringUtils.hasText(wbsData)) {
+            throw new BizException(400, "WBS计划尚未保存，无法同步");
+        }
+
+        try {
+            JsonNode root = objectMapper.readTree(wbsData);
+            JsonNode wbsList = root.get("wbs");
+            if (wbsList == null || !wbsList.isArray()) {
+                return;
+            }
+
+            SysUser current = authService.currentUser();
+            
+            List<Task> existingTasks = taskMapper.selectList(new LambdaQueryWrapper<Task>()
+                    .eq(Task::getProjectId, projectId));
+
+            for (JsonNode taskNode : wbsList) {
+                boolean isParent = taskNode.path("isParent").asBoolean(false);
+                if (isParent) {
+                    continue;
+                }
+
+                String title = taskNode.path("title").asText().trim();
+                if (!StringUtils.hasText(title)) {
+                    continue;
+                }
+
+                int progress = taskNode.path("progress").asInt(0);
+                String status = "TODO";
+                if (progress >= 100) {
+                    status = "DONE";
+                } else if (progress > 0) {
+                    status = "IN_PROGRESS";
+                }
+
+                String startDateStr = taskNode.path("startDate").asText();
+                String endDateStr = taskNode.path("endDate").asText();
+                LocalDate startDate = StringUtils.hasText(startDateStr) ? LocalDate.parse(startDateStr) : null;
+                LocalDate dueDate = StringUtils.hasText(endDateStr) ? LocalDate.parse(endDateStr) : null;
+
+                Long assigneeId = null;
+                JsonNode resourceIds = taskNode.path("resourceIds");
+                if (resourceIds != null && resourceIds.isArray() && resourceIds.size() > 0) {
+                    for (JsonNode resNode : resourceIds) {
+                        String resIdStr = resNode.asText();
+                        try {
+                            long potentialUserId = Long.parseLong(resIdStr);
+                            ProjectMember member = projectMemberMapper.selectOne(new LambdaQueryWrapper<ProjectMember>()
+                                    .eq(ProjectMember::getProjectId, projectId)
+                                    .eq(ProjectMember::getUserId, potentialUserId)
+                                    .last("limit 1"));
+                            if (member != null) {
+                                assigneeId = potentialUserId;
+                                break;
+                            }
+                        } catch (NumberFormatException ignored) {}
+                    }
+                }
+
+                Task existing = existingTasks.stream()
+                        .filter(t -> t.getTitle().trim().equalsIgnoreCase(title))
+                        .findFirst()
+                        .orElse(null);
+
+                LocalDateTime now = LocalDateTime.now();
+                if (existing != null) {
+                    existing.setStartDate(startDate);
+                    existing.setDueDate(dueDate);
+                    existing.setAssigneeId(assigneeId);
+                    existing.setStatus(status);
+                    existing.setUpdateTime(now);
+                    taskMapper.updateById(existing);
+                    
+                    writeLog(existing.getId(), current.getId(), "UPDATE", null, status, null, title,
+                            "从 WBS 计划同步更新任务");
+                } else {
+                    Task task = new Task();
+                    task.setProjectId(projectId);
+                    task.setTitle(title);
+                    task.setDescription("根据 WBS 计划 “" + title + "” 自动生成");
+                    task.setAssigneeId(assigneeId);
+                    task.setCreatorId(current.getId());
+                    task.setStatus(status);
+                    task.setPriority("MEDIUM");
+                    task.setStartDate(startDate);
+                    task.setDueDate(dueDate);
+                    task.setCreateTime(now);
+                    task.setUpdateTime(now);
+                    taskMapper.insert(task);
+
+                    writeLog(task.getId(), current.getId(), "CREATE", null, status, null, title,
+                            "从 WBS 计划自动生成任务");
+                }
+            }
+        } catch (Exception e) {
+            throw new BizException(500, "同步任务失败: " + e.getMessage());
+        }
     }
 }

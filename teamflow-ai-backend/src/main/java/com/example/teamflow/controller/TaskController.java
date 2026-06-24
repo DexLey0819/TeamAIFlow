@@ -49,4 +49,10 @@ public class TaskController {
         return Result.success(taskBizService.logs(id));
     }
 
+    @PostMapping("/projects/{id}/tasks/sync-wbs")
+    public Result<Void> syncFromWbs(@PathVariable Long id) {
+        taskBizService.syncTasksFromWbs(id);
+        return Result.success();
+    }
+
 }

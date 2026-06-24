@@ -138,14 +138,11 @@ assert.ok(
 for (const file of [
   'ProjectOverview.vue',
   'ProjectMembers.vue',
-  'PermissionMatrix.vue',
   'SectionList.vue',
   'SectionEditor.vue',
   'FileManage.vue',
   'TaskBoard.vue',
   'ProgressRecord.vue',
-  'AiReport.vue',
-  'ProjectStatistics.vue',
   'ProjectExport.vue'
 ]) {
   const source = read(`teamflow-ai-frontend/src/views/${file}`)

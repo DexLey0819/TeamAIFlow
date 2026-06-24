@@ -1,0 +1,1 @@
+import{r as t}from"./request-CqC61Zb-.js";const c=s=>t.get(`/projects/${s}/tasks`),e=s=>t.post("/tasks",s),p=(s,a)=>t.put(`/tasks/${s}/status`,a),r=s=>t.post(`/projects/${s}/tasks/sync-wbs`);export{e as c,c as p,r as s,p as u};

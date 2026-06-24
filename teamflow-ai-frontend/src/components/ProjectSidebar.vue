@@ -32,10 +32,6 @@
           <el-icon><User /></el-icon>
           <template #title>成员与申请</template>
         </el-menu-item>
-        <el-menu-item :index="`${base}/permissions`">
-          <el-icon><Lock /></el-icon>
-          <template #title>权限矩阵</template>
-        </el-menu-item>
         <el-menu-item :index="`${base}/tasks`">
           <el-icon><Calendar /></el-icon>
           <template #title>任务看板</template>
@@ -47,14 +43,6 @@
         <el-menu-item :index="`${base}/progress`">
           <el-icon><ChatLineRound /></el-icon>
           <template #title>汇报</template>
-        </el-menu-item>
-        <el-menu-item :index="`${base}/ai`">
-          <el-icon><Cpu /></el-icon>
-          <template #title>AI 智能分析</template>
-        </el-menu-item>
-        <el-menu-item :index="`${base}/statistics`">
-          <el-icon><PieChart /></el-icon>
-          <template #title>统计评分</template>
         </el-menu-item>
         <el-menu-item :index="`${base}/reviews`">
           <el-icon><Checked /></el-icon>
@@ -96,8 +84,8 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch, inject } from 'vue'
 import { useRoute } from 'vue-router'
 import { 
-  House, Grid, User, Lock, Calendar, Paperclip, 
-  ChatLineRound, Cpu, PieChart, Checked, Download, Briefcase, Document 
+  House, Grid, User, Calendar, Paperclip, 
+  ChatLineRound, Checked, Download, Briefcase, Document 
 } from '@element-plus/icons-vue'
 import { projectSections } from '../api/section'
 
@@ -116,7 +104,7 @@ const managementSection = computed(() => {
 const loading = ref(false)
 const base = computed(() => `/projects/${props.projectId}`)
 const defaultOpeneds = computed(() => {
-  const detailPages = ['/members', '/permissions', '/files', '/progress', '/reviews', '/tasks', '/ai', '/statistics', '/export']
+  const detailPages = ['/members', '/files', '/progress', '/reviews', '/tasks', '/export']
   const isDetailPage = detailPages.some(page => route.path.endsWith(page))
   return isDetailPage ? ['project-detail'] : []
 })

@@ -5,7 +5,10 @@
         <h1 class="page-title">任务看板</h1>
         <p class="page-subtitle">按 TODO、进行中、检查、完成和阻塞状态流转课程项目任务</p>
       </div>
-      <el-button type="primary" @click="dialog = true">新建任务</el-button>
+      <div style="display: flex; gap: 8px;">
+        <el-button v-if="isPM" type="success" @click="syncFromWbs">从 WBS 同步任务</el-button>
+        <el-button type="primary" @click="dialog = true">新建任务</el-button>
+      </div>
     </div>
     <div class="kanban">
       <div v-for="column in columns" :key="column.value" class="kanban-column">
@@ -61,16 +64,37 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import TaskCard from '../components/TaskCard.vue'
 import { listMembers } from '../api/project'
 import { projectSections } from '../api/section'
-import { createTask, projectTasks, updateTaskStatus } from '../api/task'
+import { createTask, projectTasks, updateTaskStatus, syncWbsTasks } from '../api/task'
 import { usePositiveProjectId } from '../utils/routeParams'
+import { useUserStore } from '../stores/user'
 
 const route = useRoute()
 const projectId = usePositiveProjectId(route)
+const userStore = useUserStore()
 const tasks = ref([])
 const members = ref([])
 const sections = ref([])
 const dialog = ref(false)
 let loadRequestId = 0
+
+const isPM = computed(() => {
+  const currentMember = members.value.find(m => m.userId === userStore.user?.id)
+  return currentMember && currentMember.memberRole === 'PROJECT_MANAGER'
+})
+
+const syncFromWbs = async () => {
+  const currentProjectId = projectId.value
+  if (!currentProjectId) return
+  try {
+    await syncWbsTasks(currentProjectId)
+    ElMessage.success('成功从 WBS 计划同步并生成任务看板内容')
+    load()
+  } catch (err) {
+    console.error('Failed to sync tasks from WBS', err)
+    ElMessage.error(err.message || '同步失败')
+  }
+}
+
 const columns = [
   { label: '待开始', value: 'TODO' },
   { label: '进行中', value: 'IN_PROGRESS' },

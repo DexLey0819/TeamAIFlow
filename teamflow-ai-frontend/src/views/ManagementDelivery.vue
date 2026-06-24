@@ -503,22 +503,50 @@
         </div>
       </el-tab-pane>
 
-      <!-- 6. AI Scheduler Assistant -->
-      <el-tab-pane label="AI 计划助理" name="ai">
-        <div class="ai-panel" style="padding: 12px; background: #fff; border-radius: 8px; display: flex; gap: 16px; flex-direction: column;">
-          <h3 style="margin: 0; font-weight: 700; color: #1e293b;">GLM 计划进度诊断智能体</h3>
-          <p style="font-size: 13px; color: #64748b; margin: 0;">基于当前项目 WBS 树、前置依赖、实际工时与基线对比，自动分析关键路径 (Critical Path) 及排程冲突。</p>
-          
-          <div style="display: flex; gap: 12px;">
-            <el-button type="primary" :loading="aiLoading" @click="runAiDiagnosis">执行计划分析诊断</el-button>
+      <!-- 6. AI Smart Analysis tab -->
+      <el-tab-pane label="AI 智能分析" name="ai">
+        <div v-if="!isPM" style="padding: 40px; text-align: center; background: #fff; border-radius: 8px;">
+          <el-empty description="此功能仅项目经理有权限使用" />
+        </div>
+        <div v-else class="ai-panel" style="padding: 12px; background: #fff; border-radius: 8px; display: flex; gap: 16px; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; margin-bottom: 8px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h3 style="margin: 0; font-weight: 700; color: #1e293b;">AI 智能分析</h3>
+              <p style="font-size: 13px; color: #64748b; margin: 4px 0 0;">使用智谱 GLM 基于项目任务、进度和文档生成周报、风险、缺失检查与总结</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <el-button type="primary" :loading="aiLoading" @click="generateAiReport('weekly')">生成周报</el-button>
+              <el-button type="warning" :loading="aiLoading" @click="generateAiReport('risk')">识别风险</el-button>
+              <el-button :loading="aiLoading" @click="generateAiReport('doc')">文档检查</el-button>
+              <el-button :loading="aiLoading" @click="generateAiReport('summary')">生成总结</el-button>
+            </div>
           </div>
 
-          <div v-if="aiResult" class="ai-diagnosis-result" style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 16px; background: #f8fafc; font-size: 14px; line-height: 1.6; color: #334155;">
-            <div style="display: flex; align-items: center; gap: 8px; font-weight: bold; margin-bottom: 12px;">
-              <el-tag type="danger">AI 诊断报告</el-tag>
-              <span>关键路径与进度偏离建议：</span>
+          <div v-if="aiLoading" style="padding: 40px 0; text-align: center;">
+            <el-icon class="is-loading" size="28" style="color: #0f766e;"><Loading /></el-icon>
+            <p style="margin-top: 8px; color: #64748b; font-size: 14px;">AI 正在深度分析中，请耐心等待...</p>
+          </div>
+
+          <div v-else>
+            <div v-if="latestRecord" style="margin-bottom: 20px;">
+              <div style="font-size: 14px; font-weight: 700; color: #0f766e; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                <span style="display: inline-block; width: 4px; height: 14px; background: #0f766e; border-radius: 2px;"></span>
+                最新分析报告
+              </div>
+              <AiResultPanel :record="latestRecord" />
             </div>
-            <div style="white-space: pre-wrap;" v-html="aiResult"></div>
+
+            <div v-if="olderRecords.length > 0">
+              <div style="font-size: 14px; font-weight: 700; color: #475569; margin: 24px 0 12px; display: flex; align-items: center; gap: 6px;">
+                <span style="display: inline-block; width: 4px; height: 14px; background: #475569; border-radius: 2px;"></span>
+                历史分析与成员智能体记录
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <AiResultPanel v-for="record in olderRecords" :key="record.id" :record="record" />
+              </div>
+            </div>
+
+            <el-empty v-if="!latestRecord && olderRecords.length === 0" description="暂无分析记录，请点击上方按钮生成" />
           </div>
         </div>
       </el-tab-pane>
@@ -729,6 +757,9 @@ import * as echarts from 'echarts'
 import { listMembers, projectDetail, saveProjectWbs } from '../api/project'
 import { useUserStore } from '../stores/user'
 import { mySectionPermissions } from '../api/permission'
+import AiResultPanel from '../components/AiResultPanel.vue'
+import { weeklyReport, riskAnalysis, documentCheck, summaryReport, aiRecords } from '../api/ai'
+import { Loading } from '@element-plus/icons-vue'
 import {
   projectSections,
   sectionDetail,
@@ -1084,6 +1115,9 @@ const loadData = async () => {
     resources.value = data.resources || []
     calendar.value = data.calendar || createDefaultCalendar()
     baselines.value = data.baselines || []
+    if (baselines.value.length > 0 && !selectedBaseline.value) {
+      selectedBaseline.value = baselines.value[baselines.value.length - 1].id
+    }
     
     // Ensure defaults
     if (!calendar.value.specialWorkDays) calendar.value.specialWorkDays = []
@@ -1705,9 +1739,9 @@ const saveBaseline = () => {
 
 const getBaselineTask = (taskId) => {
   if (!selectedBaseline.value) return null
-  const base = baselines.value.find(b => b.id === selectedBaseline.value)
+  const base = baselines.value.find(b => String(b.id) === String(selectedBaseline.value))
   if (!base) return null
-  return base.tasks.find(t => t.id === taskId) || null
+  return base.tasks.find(t => String(t.id) === String(taskId)) || null
 }
 
 const getBaselineTaskBar = (taskId) => {
@@ -1845,39 +1879,43 @@ const renderWorkloadChart = async () => {
   })
 }
 
-// AI Diagnostic analysis using mock GLM response
-const runAiDiagnosis = () => {
+// AI smart analysis methods
+const aiRecordsList = ref([])
+const latestRecord = computed(() => aiRecordsList.value[0] || null)
+const olderRecords = computed(() => aiRecordsList.value.slice(1))
+
+const loadAiRecords = async () => {
   const currentProjectId = projectId.value
   if (!currentProjectId) return
-  const requestId = ++aiDiagnosisRequestId
+  try {
+    const list = await aiRecords(currentProjectId)
+    aiRecordsList.value = list || []
+  } catch (err) {
+    console.error('Failed to load AI records', err)
+  }
+}
+
+const generateAiReport = async (type) => {
+  const currentProjectId = projectId.value
+  if (!currentProjectId) return
   aiLoading.value = true
-  
-  const delayedTasks = wbs.value.filter(t => !t.isParent && getScheduleVariance(t) > 0)
-  const milestoneCount = wbs.value.filter(t => t.duration === 0).length
-  const totalCost = wbs.value.reduce((sum, t) => sum + calculateTaskCost(t), 0)
-  
-  setTimeout(() => {
-    if (requestId !== aiDiagnosisRequestId || projectId.value !== currentProjectId) return
-    aiLoading.value = false
-    aiResult.value = `### 🤖 GLM-4.7 计划排程评估分析
-
-1. **项目关键路径分析 (Critical Path Method)**
-   - 关键路径为：**1.1 需求分析编制** ➔ **1.2 原型界面设计** ➔ **2.1 后端架构搭建与设计** ➔ **2.2 前端页面与图表开发**。
-   - 最后一项交付物“项目上线与交付”无缝连接关键路径，整体排程结构合理。
-
-2. **进度偏离与风险预警 (Variance & Risk)**
-   ${delayedTasks.length > 0 
-     ? `- 发现 **${delayedTasks.length}** 个任务超出计划基线（偏离共计 ${delayedTasks.reduce((s,t)=>s+getScheduleVariance(t),0)} 天）。主要延误点在：${delayedTasks.map(t=>t.title).join(', ')}。`
-     : '- 所有活动均按基准线正常推进，未发现进度严重偏离。'}
-   - **资源超载分析**：成员负载图与负载矩阵显示，部分日期存在资源分配超载现象（红色标示）。例如，前端开发在联调期间同时被分配了多个子任务，日工作负荷超 8 小时。建议重新配置部分前置关系的开始日期。
-
-3. **里程碑管理 (Milestones)**
-   - 本项目定义了 **${milestoneCount}** 个交付里程碑。下一里程碑为 **“项目上线与交付”**，预定完成时间为 **2026-06-29**。
-
-4. **工时与成本控制指标 (EVM)**
-   - 当前项目总预计预算成本：**$${totalCost}**。
-   - 建议：安排周会重新平衡超负荷资源的计划，并通过“自动排期”重新平滑工期。`
-  }, 1200)
+  try {
+    if (type === 'weekly') await weeklyReport(currentProjectId)
+    if (type === 'risk') await riskAnalysis(currentProjectId)
+    if (type === 'doc') await documentCheck(currentProjectId)
+    if (type === 'summary') await summaryReport(currentProjectId)
+    
+    if (projectId.value !== currentProjectId) return
+    ElMessage.success('AI 分析完成')
+    await loadAiRecords()
+  } catch (err) {
+    console.error('Failed to generate AI report', err)
+    ElMessage.error(err.message || '生成失败')
+  } finally {
+    if (projectId.value === currentProjectId) {
+      aiLoading.value = false
+    }
+  }
 }
 
 // Export custom HTML deliverables
@@ -2226,11 +2264,19 @@ watch(activeTab, (newTab) => {
     })
   } else if (newTab === 'planReview') {
     loadDeliverySection()
+  } else if (newTab === 'ai') {
+    if (isPM.value) {
+      loadAiRecords()
+    }
   }
 })
 
 watch(projectId, () => {
-  checkMembership()
+  checkMembership().then(() => {
+    if (activeTab.value === 'ai' && isPM.value) {
+      loadAiRecords()
+    }
+  })
   loadData()
   loadDeliverySection()
 }, { immediate: true })
