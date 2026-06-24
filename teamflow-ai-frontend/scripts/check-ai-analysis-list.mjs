@@ -59,4 +59,18 @@ assert.deepEqual(getAiStatusPresentation('GENERATED'), { label: '已生成', typ
 assert.deepEqual(getAiStatusPresentation('FAILED'), { label: '失败', type: 'danger' })
 assert.deepEqual(getAiStatusPresentation('WAITING'), { label: 'WAITING', type: 'warning' })
 
+assert.ok(exists('src/components/ai/AiAnalysisList.vue'), 'AI analysis list component should exist')
+const listSource = read('src/components/ai/AiAnalysisList.vue')
+assert.match(listSource, /AI_RECORD_CATEGORIES/, 'list should render the shared categories')
+assert.match(listSource, /getAiCategoryCounts/, 'list should show category counts')
+assert.match(listSource, /filterAiRecords/, 'list should filter records by category')
+assert.match(listSource, /paginateAiRecords/, 'list should paginate filtered records')
+assert.match(listSource, /pageResetKey/, 'list should reset page after a newly generated record')
+assert.match(listSource, /每页 10 条/, 'list should explain its fixed page size')
+assert.match(listSource, /使用用途/, 'list should expose each analysis purpose')
+assert.match(listSource, /生成者/, 'list should expose the generating user')
+assert.match(listSource, /查看详情/, 'list should open details instead of expanding AI content')
+assert.match(listSource, /emit\('view', row\)/, 'list should emit the selected record')
+assert.doesNotMatch(listSource, /row\.result/, 'list should not render full AI results')
+
 console.log('AI analysis list checks passed')
