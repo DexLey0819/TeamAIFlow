@@ -73,4 +73,14 @@ assert.match(listSource, /查看详情/, 'list should open details instead of ex
 assert.match(listSource, /emit\('view', row\)/, 'list should emit the selected record')
 assert.doesNotMatch(listSource, /row\.result/, 'list should not render full AI results')
 
+assert.ok(exists('src/components/ai/AiRecordDetailDialog.vue'), 'AI record detail dialog should exist')
+const detailSource = read('src/components/ai/AiRecordDetailDialog.vue')
+assert.match(detailSource, /el-dialog/, 'details should use a dialog')
+assert.match(detailSource, /record\.result \|\| '暂无 AI 分析内容'/, 'dialog should show complete results with a fallback')
+assert.match(detailSource, /record\.username \|\| '系统'/, 'dialog should identify the generating user')
+assert.match(detailSource, /record\.prompt/, 'dialog should support prompt details')
+assert.match(detailSource, /el-collapse-item/, 'prompt details should be collapsed by default')
+assert.match(detailSource, /max-height: 52vh/, 'long AI results should scroll inside the dialog')
+assert.match(detailSource, /emit\('closed'\)/, 'dialog should allow its parent to clear the selected record')
+
 console.log('AI analysis list checks passed')
