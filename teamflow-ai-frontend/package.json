@@ -12,7 +12,8 @@
     "check:profile": "node scripts/check-profile-feature.mjs",
     "check:project-workspace": "node scripts/check-project-workspace-editor.mjs",
     "check:route-params": "node scripts/check-route-param-safety.mjs",
-    "check": "npm run check:join-redirect && npm run check:member-access && npm run check:profile && npm run check:project-workspace && npm run check:route-params"
+    "check:ai-analysis-list": "node scripts/check-ai-analysis-list.mjs",
+    "check": "npm run check:join-redirect && npm run check:member-access && npm run check:profile && npm run check:project-workspace && npm run check:route-params && npm run check:ai-analysis-list"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
