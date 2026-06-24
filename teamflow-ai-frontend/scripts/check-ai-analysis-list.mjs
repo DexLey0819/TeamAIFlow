@@ -83,4 +83,16 @@ assert.match(detailSource, /el-collapse-item/, 'prompt details should be collaps
 assert.match(detailSource, /max-height: 52vh/, 'long AI results should scroll inside the dialog')
 assert.match(detailSource, /emit\('closed'\)/, 'dialog should allow its parent to clear the selected record')
 
+const managementSource = read('src/views/ManagementDelivery.vue')
+assert.match(managementSource, /AiAnalysisList/, 'management page should render the classified list')
+assert.match(managementSource, /AiRecordDetailDialog/, 'management page should render the detail dialog')
+assert.match(managementSource, /v-model:category="aiCategory"/, 'management page should own the selected category')
+assert.match(managementSource, /:page-reset-key="aiListPageResetKey"/, 'generation should be able to reset the current page')
+assert.match(managementSource, /@view="openAiRecord"/, 'list rows should open the detail dialog')
+assert.match(managementSource, /@retry="loadAiRecords"/, 'load errors should be retryable')
+assert.match(managementSource, /aiRecordsError/, 'record loading should expose an error without clearing successful data')
+assert.match(managementSource, /generatedRecord\?\.type/, 'generation should prefer the returned record type')
+assert.match(managementSource, /generatedCategoryByAction/, 'generation should fall back to its requested type')
+assert.doesNotMatch(managementSource, /AiResultPanel/, 'management page should not expand AI records')
+
 console.log('AI analysis list checks passed')

@@ -522,32 +522,20 @@
             </div>
           </div>
 
-          <div v-if="aiLoading" style="padding: 40px 0; text-align: center;">
-            <el-icon class="is-loading" size="28" style="color: #0f766e;"><Loading /></el-icon>
-            <p style="margin-top: 8px; color: #64748b; font-size: 14px;">AI 正在深度分析中，请耐心等待...</p>
-          </div>
-
-          <div v-else>
-            <div v-if="latestRecord" style="margin-bottom: 20px;">
-              <div style="font-size: 14px; font-weight: 700; color: #0f766e; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                <span style="display: inline-block; width: 4px; height: 14px; background: #0f766e; border-radius: 2px;"></span>
-                最新分析报告
-              </div>
-              <AiResultPanel :record="latestRecord" />
-            </div>
-
-            <div v-if="olderRecords.length > 0">
-              <div style="font-size: 14px; font-weight: 700; color: #475569; margin: 24px 0 12px; display: flex; align-items: center; gap: 6px;">
-                <span style="display: inline-block; width: 4px; height: 14px; background: #475569; border-radius: 2px;"></span>
-                历史分析与成员智能体记录
-              </div>
-              <div style="display: flex; flex-direction: column; gap: 16px;">
-                <AiResultPanel v-for="record in olderRecords" :key="record.id" :record="record" />
-              </div>
-            </div>
-
-            <el-empty v-if="!latestRecord && olderRecords.length === 0" description="暂无分析记录，请点击上方按钮生成" />
-          </div>
+          <AiAnalysisList
+            v-model:category="aiCategory"
+            :records="aiRecordsList"
+            :page-reset-key="aiListPageResetKey"
+            :loading="aiRecordsLoading"
+            :error="aiRecordsError"
+            @view="openAiRecord"
+            @retry="loadAiRecords"
+          />
+          <AiRecordDetailDialog
+            v-model="aiDetailVisible"
+            :record="selectedAiRecord"
+            @closed="selectedAiRecord = null"
+          />
         </div>
       </el-tab-pane>
 
@@ -757,9 +745,9 @@ import * as echarts from 'echarts'
 import { listMembers, projectDetail, saveProjectWbs } from '../api/project'
 import { useUserStore } from '../stores/user'
 import { mySectionPermissions } from '../api/permission'
-import AiResultPanel from '../components/AiResultPanel.vue'
+import AiAnalysisList from '../components/ai/AiAnalysisList.vue'
+import AiRecordDetailDialog from '../components/ai/AiRecordDetailDialog.vue'
 import { weeklyReport, riskAnalysis, documentCheck, summaryReport, aiRecords } from '../api/ai'
-import { Loading } from '@element-plus/icons-vue'
 import {
   projectSections,
   sectionDetail,
@@ -771,6 +759,7 @@ import {
   sectionReviews
 } from '../api/section'
 import { usePositiveProjectId } from '../utils/routeParams'
+import { getAiRecordPresentation } from '../utils/aiRecordPresentation'
 
 const route = useRoute()
 const projectId = usePositiveProjectId(route)
@@ -779,6 +768,7 @@ let loadRequestId = 0
 let membershipRequestId = 0
 let deliverySectionRequestId = 0
 let aiDiagnosisRequestId = 0
+let aiRecordsRequestId = 0
 
 const activeTab = ref('gantt')
 const isPM = ref(false)
@@ -1055,6 +1045,7 @@ const resetDeliveryState = () => {
 
 const resetProjectState = () => {
   aiDiagnosisRequestId++
+  aiRecordsRequestId++
   wbs.value = []
   resources.value = []
   calendar.value = createDefaultCalendar()
@@ -1069,6 +1060,13 @@ const resetProjectState = () => {
   resourcesForAssignment.value = []
   aiLoading.value = false
   aiResult.value = ''
+  aiRecordsList.value = []
+  aiRecordsLoading.value = false
+  aiRecordsError.value = ''
+  aiCategory.value = 'ALL'
+  aiListPageResetKey.value += 1
+  selectedAiRecord.value = null
+  aiDetailVisible.value = false
   newHoliday.value = ''
   newSpecialWorkday.value = ''
   selectedWorkloadResourceId.value = ''
@@ -1881,18 +1879,44 @@ const renderWorkloadChart = async () => {
 
 // AI smart analysis methods
 const aiRecordsList = ref([])
-const latestRecord = computed(() => aiRecordsList.value[0] || null)
-const olderRecords = computed(() => aiRecordsList.value.slice(1))
+const aiRecordsLoading = ref(false)
+const aiRecordsError = ref('')
+const aiCategory = ref('ALL')
+const aiListPageResetKey = ref(0)
+const selectedAiRecord = ref(null)
+const aiDetailVisible = ref(false)
+
+const generatedCategoryByAction = {
+  weekly: 'WEEKLY_REPORT',
+  risk: 'RISK_ANALYSIS',
+  doc: 'DOC_CHECK',
+  summary: 'SUMMARY_REPORT'
+}
 
 const loadAiRecords = async () => {
   const currentProjectId = projectId.value
   if (!currentProjectId) return
+  const requestId = ++aiRecordsRequestId
+  aiRecordsLoading.value = true
+  aiRecordsError.value = ''
   try {
     const list = await aiRecords(currentProjectId)
+    if (requestId !== aiRecordsRequestId || projectId.value !== currentProjectId) return
     aiRecordsList.value = list || []
   } catch (err) {
+    if (requestId !== aiRecordsRequestId || projectId.value !== currentProjectId) return
+    aiRecordsError.value = err.message || '请稍后重试'
     console.error('Failed to load AI records', err)
+  } finally {
+    if (requestId === aiRecordsRequestId && projectId.value === currentProjectId) {
+      aiRecordsLoading.value = false
+    }
   }
+}
+
+const openAiRecord = (record) => {
+  selectedAiRecord.value = record
+  aiDetailVisible.value = true
 }
 
 const generateAiReport = async (type) => {
@@ -1900,21 +1924,23 @@ const generateAiReport = async (type) => {
   if (!currentProjectId) return
   aiLoading.value = true
   try {
-    if (type === 'weekly') await weeklyReport(currentProjectId)
-    if (type === 'risk') await riskAnalysis(currentProjectId)
-    if (type === 'doc') await documentCheck(currentProjectId)
-    if (type === 'summary') await summaryReport(currentProjectId)
-    
+    let generatedRecord = null
+    if (type === 'weekly') generatedRecord = await weeklyReport(currentProjectId)
+    if (type === 'risk') generatedRecord = await riskAnalysis(currentProjectId)
+    if (type === 'doc') generatedRecord = await documentCheck(currentProjectId)
+    if (type === 'summary') generatedRecord = await summaryReport(currentProjectId)
+
     if (projectId.value !== currentProjectId) return
-    ElMessage.success('AI 分析完成')
+    const generatedType = generatedRecord?.type || generatedCategoryByAction[type]
+    aiCategory.value = getAiRecordPresentation(generatedType).category
+    aiListPageResetKey.value += 1
     await loadAiRecords()
+    ElMessage.success('AI 分析完成')
   } catch (err) {
     console.error('Failed to generate AI report', err)
     ElMessage.error(err.message || '生成失败')
   } finally {
-    if (projectId.value === currentProjectId) {
-      aiLoading.value = false
-    }
+    if (projectId.value === currentProjectId) aiLoading.value = false
   }
 }
 
