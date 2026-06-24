@@ -1,1 +1,0 @@
-import{r as s}from"./request-CqC61Zb-.js";const o=e=>s.post("/files/upload",e,{headers:{"Content-Type":"multipart/form-data"}}),t=e=>s.get(`/files/project/${e}`),i=e=>s.delete(`/files/${e}`),a=e=>s.get(`/files/download/${e}`,{responseType:"blob"}),n=e=>`/api/files/inline/${e}`;export{a,i as d,n as i,t as p,o as u};
