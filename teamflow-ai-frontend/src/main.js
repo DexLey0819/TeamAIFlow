@@ -11,3 +11,4 @@ createApp(App)
   .use(router)
   .use(ElementPlus)
   .mount('#app')
+console.log("TeamFlowAI Git Integration Test");
